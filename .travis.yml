@@ -9,3 +9,5 @@ before_install:
 
 script:
   - docker run -e CI=true slevinhome/docker-react npm run test
+
+
