@@ -1,23 +1,12 @@
+slevin-VirtualBox# cat /home/slevin/frontend/.travis.yml 
+language: generic
 sudo: required
- - docker
+
+services:
+  - docker
 
 before_install:
- - docker build -t slevinhome/docker-react -f Dockerfile.dev .
+  - docker build -t slevinhome/docker-react -f Dockerfile.dev .
 
 script:
- - docker run slevinhome/docker-react npm run test -- --coverage
-
-
-deploy:
- provider: elasticbeanstalk
- region: "us-east-2"
- app: "docker"
- env: "Docker-env"
- bucket_name: "elasticbeanstalk-us-east-2-495010293839"
- bucket_path: "docker"
- on:
-   branch: master
- access_key_id : $AWS_ACCESS_KEY
- secret_access_key:
-   secure: "$AWS_SECRET_KEY"
- 
+  - docker run -e CI=true slevinhome/docker-react npm run test
